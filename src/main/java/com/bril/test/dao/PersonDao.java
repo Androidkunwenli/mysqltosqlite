@@ -1,0 +1,25 @@
+package com.bril.test.dao;
+
+import com.bril.test.entity.Person;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public class PersonDao {
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public List<Person> getPersonList() {
+        List<Person> list = jdbcTemplate.query("select * from t_user", new Object[]{}, new BeanPropertyRowMapper(Person.class));
+        if (list.size() > 0) {
+            return list;
+        } else {
+            return null;
+        }
+
+    }
+}
